@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CG Predictor</title>
+ 
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+ 
+    <link href="https://getbootstrap.com/docs/3.4/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+ 
+    <link href="../static/signup.css" rel="stylesheet">
+    
+  </head>
+ 
+  <body>
+ 
+ 
+      <div class="jumbotron">
+        <h1>CG Predictor</h1>
+        <form class="form-signin" action= "{{ url_for('submitMain') }}" method="POST" >
+        <label for="inputCGPresent" class="sr-only">CG until last sem</label>
+        <input type="number" step = "0.001"name="inputCGPresent" id="inputCGPresent" class="form-control" placeholder="CG until last sem" required autofocus>
+        <label for="inputTECR" class="sr-only">Total Earned Credits until last sem</label>
+        <input type="number" name="inputTECR" id="inputTECR" class="form-control" placeholder="Total Earned Credits until last sem" required autofocus>
+        <label for="n" class="sr-only" >No. of Courses in current sem</label>
+        <input type="number"  name="inputn" id="inputn" class="form-control" onkeyup="BuildFormFields(parseInt(this.value, 10));" placeholder="No. of Courses in current sem" required autofocus>
+        <div id="CourseFields" style="margin: 20px 0px;"></div>
+        <script type="text/javascript">
+
+          function BuildFormFields($numcourse)
+          { 
+            var
+        $container = document.getElementById('CourseFields'),
+        $item, $field, $i;
+
+      $container.innerHTML = '';
+      for ($i = 1; $i <= $numcourse; $i++) {
+        $item = document.createElement('div');
+        $item.style.margin = '3px';
+
+        $field = document.createElement('label');
+        $field.for = 'credit'+$i;
+        $field.className = 'sr-only';
+        $field.innerHTML = 'Course '+$i+' Credit';
+        $item.appendChild($field);
+
+        $field = document.createElement('input');
+        $field.className = 'form-control';
+        $field.name = 'inputCredit' + $i;
+        $field.type = 'number';
+        $field.id = 'inputCredit' + $i;
+        $field.placeholder = "Course "+$i+" Credit";
+        $item.appendChild($field);
+
+        $field = document.createElement('label');
+        $field.for = 'grade'+$i;
+        $field.className = 'sr-only';
+        $field.innerHTML = 'Course '+$i+' Grade';
+        $item.appendChild($field);
+
+        $field = document.createElement('input');
+        $field.className = 'form-control';
+        $field.name = 'inputGrade' + $i;
+        $field.type = 'number';
+        $field.id = 'inputGrade' + $i;
+        $field.placeholder = "Course "+$i+" Grade";
+        $item.appendChild($field);
+
+        $container.appendChild($item);
+      }
+          }
+
+        </script>
+         
+        <input type="submit" id="btnSubmit0" class="btn btn-lg btn-primary btn-block" type="button" value="Submit"></button>
+      </form>
+      </div>
+ 
+       
+ 
+      <footer class="footer">
+        <p>&copy; Sanjeev Krishnan :)</p>
+      </footer>
+ 
+    </div>
+  </body>
+</html>
